@@ -10,16 +10,10 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "*": [
-        "types/*"
-      ]
+      "*": ["types/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+  "include": ["src/**/*", "**/*.ts", "**/*.tsx"],
   "exclude": [
     "node_modules",
     "babel.config.js",
