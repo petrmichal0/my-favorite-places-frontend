@@ -1,14 +1,13 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import PlaceItem from "./PlaceItem";
 
-function PlacesList({ places }) {
+function PlacesList({ places }: { places: any[] }) {
   if (!places || places.length === 0) {
     return (
       <View style={styles.fallbackContainer}>
         <Text style={styles.fallbackText}>
           No places added yet - start adding some!
         </Text>
-        ;
       </View>
     );
   }

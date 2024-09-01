@@ -10,14 +10,21 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "*": ["types/*"]
+      "*": [
+        "types/*"
+      ]
     }
   },
-  "include": ["src/**/*", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "src/**/*",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "exclude": [
     "node_modules",
     "babel.config.js",
     "metro.config.js",
     "jest.config.js"
-  ]
+  ],
+  "extends": "expo/tsconfig.base"
 }
