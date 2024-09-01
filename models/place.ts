@@ -1,15 +1,16 @@
-class Place {
-  constructor(
-    title: string,
-    imageUri: string,
-    location: { lat: number; lng: number },
-    address: string,
-    id: string
-  ) {
-    this.title = title;
-    this.imageUri = imageUri;
-    this.address = address;
-    this.location = { lat: location.lat, lng: location.lng };
-    this.id = new Date().toString() + Math.random().toString();
-  }
+function place(
+  title: string,
+  imageUri: string,
+  location: { lat: number; lng: number },
+  address: string
+) {
+  const id = new Date().toString() + Math.random().toString();
+
+  return {
+    title,
+    imageUri,
+    address,
+    location: { lat: location.lat, lng: location.lng },
+    id,
+  };
 }
