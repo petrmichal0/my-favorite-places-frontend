@@ -39,7 +39,8 @@ function Map({ navigation }: { navigation: any }) {
         return;
       }
       navigation.navigate("AddPlace", {
-        location: selectedLocation,
+        pickedLat: selectedLocation.latitude,
+        pickedLng: selectedLocation.longitude,
       });
     };
 

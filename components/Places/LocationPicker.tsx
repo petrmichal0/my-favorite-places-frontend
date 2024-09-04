@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Image, StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import {
@@ -15,10 +15,16 @@ import OutlinedButton from "./ui/OutlinedButton";
 import { getMapPreview } from "../../util/location";
 
 type RootStackParamList = {
-  Map: undefined;
+  Map:
+    | {
+        pickedLat: number;
+        pickedLng: number;
+      }
+    | undefined;
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Map">;
+type MapScreenRouteProp = RouteProp<RootStackParamList, "Map">;
 
 function LocationPicker() {
   const [pickedLocation, setPickedLocation] = useState<{
@@ -27,9 +33,25 @@ function LocationPicker() {
   } | null>(null);
 
   const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<MapScreenRouteProp>();
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
+
+  const mapPickedLocation = route.params && {
+    lat: route.params.pickedLat,
+    lng: route.params.pickedLng,
+  };
+
+  useEffect(() => {
+    if (
+      mapPickedLocation &&
+      (pickedLocation?.lat !== mapPickedLocation.lat ||
+        pickedLocation?.lng !== mapPickedLocation.lng)
+    ) {
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [mapPickedLocation, pickedLocation]);
 
   async function verifyPermissions() {
     if (
