@@ -6,11 +6,25 @@ import { Colors } from "../../constants/colors";
 import ImagePicker from "./ImagePicker";
 import LocationPicker from "./LocationPicker";
 import Button from "./ui/Button";
+import { place } from "../../models/place";
 
-function PlaceForm() {
+type PlaceFormProps = {
+  onCreatePlace: (placeData: {
+    title: string;
+    imageUri: string;
+    address: string;
+    location: { lat: number; lng: number };
+  }) => void;
+};
+
+function PlaceForm({ onCreatePlace }: PlaceFormProps) {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
-  const [pickedLocation, setPickedLocation] = useState("");
+  const [pickedLocation, setPickedLocation] = useState<{
+    lat: number;
+    lng: number;
+    address: string;
+  } | null>(null);
 
   function changeTitleHandler(enteredText: string) {
     setEnteredTitle(enteredText);
@@ -25,9 +39,13 @@ function PlaceForm() {
   }
 
   function savePlaceHandler() {
-    console.log(enteredTitle);
-    console.log(selectedImage);
-    console.log(pickedLocation);
+    if (!pickedLocation) {
+      // If no location is selected, do nothing or display an error
+      return;
+    }
+
+    const placeData = place(enteredTitle, selectedImage, pickedLocation);
+    onCreatePlace(placeData);
   }
 
   return (
