@@ -12,7 +12,7 @@ import {
 import { Colors } from "../../constants/colors";
 
 import OutlinedButton from "./ui/OutlinedButton";
-import { getMapPreview } from "../../util/location";
+import { getAddress, getMapPreview } from "../../util/location";
 
 type RootStackParamList = {
   Map:
@@ -27,13 +27,18 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Map">;
 type MapScreenRouteProp = RouteProp<RootStackParamList, "Map">;
 
 type LocationPickerProps = {
-  onPickLocation: (location: { lat: number; lng: number }) => void;
+  onPickLocation: (location: {
+    lat: number;
+    lng: number;
+    address?: string;
+  }) => void;
 };
 
 function LocationPicker({ onPickLocation }: LocationPickerProps) {
   const [pickedLocation, setPickedLocation] = useState<{
     lat: number;
     lng: number;
+    address: string;
   } | null>(null);
 
   const navigation = useNavigation<NavigationProp>();
@@ -45,21 +50,34 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
   const mapPickedLocation = route.params && {
     lat: route.params.pickedLat,
     lng: route.params.pickedLng,
+    address: "",
   };
 
   useEffect(() => {
-    if (
-      mapPickedLocation &&
-      (pickedLocation?.lat !== mapPickedLocation.lat ||
-        pickedLocation?.lng !== mapPickedLocation.lng)
-    ) {
-      setPickedLocation(mapPickedLocation);
-    }
-  }, [mapPickedLocation, pickedLocation]);
+    async function handleLocation() {
+      if (pickedLocation) {
+        console.log(pickedLocation.lat, pickedLocation.lng);
 
-  useEffect(() => {
-    if (pickedLocation) {
-      onPickLocation(pickedLocation);
+        // Získání adresy na základě aktuální polohy
+        const address = await getAddress(
+          pickedLocation.lat,
+          pickedLocation.lng
+        );
+
+        // Pokud je adresa stejná jako v pickedLocation, nedělejte nic
+        if (pickedLocation.address === address) return;
+
+        // Pokud je adresa odlišná, aktualizujte pickedLocation
+        onPickLocation({ ...pickedLocation, address });
+      }
+    }
+
+    // Kontrola pro spuštění handleLocation pouze pokud se změnila lat nebo lng
+    if (
+      pickedLocation &&
+      (!pickedLocation.address || pickedLocation.address === "")
+    ) {
+      handleLocation();
     }
   }, [pickedLocation, onPickLocation]);
 
@@ -92,6 +110,7 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
     setPickedLocation({
       lat: location.coords.latitude,
       lng: location.coords.longitude,
+      address: "",
     });
   }
 
