@@ -58,21 +58,21 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
       if (pickedLocation) {
         console.log(pickedLocation.lat, pickedLocation.lng);
 
-        // Získání adresy na základě aktuální polohy
+        // Fetching the address based on the current location
         const address = await getAddress(
           pickedLocation.lat,
           pickedLocation.lng
         );
 
-        // Pokud je adresa stejná jako v pickedLocation, nedělejte nic
+        // If the address is the same as in pickedLocation, do nothing
         if (pickedLocation.address === address) return;
 
-        // Pokud je adresa odlišná, aktualizujte pickedLocation
+        // If the address is different, update pickedLocation
         onPickLocation({ ...pickedLocation, address });
       }
     }
 
-    // Kontrola pro spuštění handleLocation pouze pokud se změnila lat nebo lng
+    // Check to run handleLocation only if lat or lng has changed
     if (
       pickedLocation &&
       (!pickedLocation.address || pickedLocation.address === "")
