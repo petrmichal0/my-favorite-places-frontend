@@ -26,7 +26,11 @@ type RootStackParamList = {
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Map">;
 type MapScreenRouteProp = RouteProp<RootStackParamList, "Map">;
 
-function LocationPicker() {
+type LocationPickerProps = {
+  onPickLocation: (location: { lat: number; lng: number }) => void;
+};
+
+function LocationPicker({ onPickLocation }: LocationPickerProps) {
   const [pickedLocation, setPickedLocation] = useState<{
     lat: number;
     lng: number;
@@ -52,6 +56,12 @@ function LocationPicker() {
       setPickedLocation(mapPickedLocation);
     }
   }, [mapPickedLocation, pickedLocation]);
+
+  useEffect(() => {
+    if (pickedLocation) {
+      onPickLocation(pickedLocation);
+    }
+  }, [pickedLocation, onPickLocation]);
 
   async function verifyPermissions() {
     if (
