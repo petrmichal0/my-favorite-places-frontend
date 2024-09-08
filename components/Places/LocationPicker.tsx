@@ -35,14 +35,14 @@ type LocationPickerProps = {
 };
 
 function LocationPicker({ onPickLocation }: LocationPickerProps) {
+  const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<MapScreenRouteProp>();
+
   const [pickedLocation, setPickedLocation] = useState<{
     lat: number;
     lng: number;
     address: string;
   } | null>(null);
-
-  const navigation = useNavigation<NavigationProp>();
-  const route = useRoute<MapScreenRouteProp>();
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -53,26 +53,43 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
     address: "",
   };
 
+  // Sleduj změny route.params pouze jednou
+  useEffect(() => {
+    if (
+      mapPickedLocation &&
+      (!pickedLocation ||
+        pickedLocation.lat !== mapPickedLocation.lat ||
+        pickedLocation.lng !== mapPickedLocation.lng)
+    ) {
+      setPickedLocation(mapPickedLocation);
+    }
+  }, [route.params]); // Sleduj pouze route.params
+
+  // Sleduj změny pickedLocation a získej adresu
   useEffect(() => {
     async function handleLocation() {
       if (pickedLocation) {
-        console.log(pickedLocation.lat, pickedLocation.lng);
+        console.log("Picked Location:", pickedLocation);
+        console.log("Latitude:", pickedLocation.lat);
+        console.log("Longitude:", pickedLocation.lng);
 
-        // Fetching the address based on the current location
+        // Získání adresy na základě aktuální polohy
         const address = await getAddress(
           pickedLocation.lat,
           pickedLocation.lng
         );
+        console.log("Fetched Address:", address);
 
-        // If the address is the same as in pickedLocation, do nothing
+        // Pokud je adresa stejná jako v pickedLocation, nic nedělej
         if (pickedLocation.address === address) return;
 
-        // If the address is different, update pickedLocation
-        onPickLocation({ ...pickedLocation, address });
+        // Pokud je adresa jiná, aktualizuj pickedLocation
+        const updatedLocation = { ...pickedLocation, address };
+        setPickedLocation(updatedLocation);
+        onPickLocation(updatedLocation);
       }
     }
 
-    // Check to run handleLocation only if lat or lng has changed
     if (
       pickedLocation &&
       (!pickedLocation.address || pickedLocation.address === "")
@@ -129,6 +146,7 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
         }}
       />
     );
+    console.log("Picked Location:", pickedLocation);
   }
 
   return (

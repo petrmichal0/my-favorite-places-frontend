@@ -6,7 +6,6 @@ type AddPlaceProps = {
 
 function AddPlace({ navigation }: AddPlaceProps) {
   function createPlaceHandler(place: any) {
-    // Použití správného typu
     navigation.navigate("AllPlaces", {
       place: place,
     });
