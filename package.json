@@ -13,19 +13,20 @@
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/native-stack": "^6.11.0",
     "axios": "^1.7.7",
-    "expo": "~51.0.28",
     "expo-image-picker": "~15.0.7",
     "expo-location": "~17.0.1",
-    "expo-sqlite": "~14.0.6",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.5",
-    "react-native-maps": "1.14.0"
+    "react-native-maps": "1.14.0",
+    "expo-sqlite": "~14.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "^18.2.79",
     "@types/react-native": "^0.73.0",
+    "expo": "^51.0.32",
+    "expo-module-scripts": "^3.5.2",
     "typescript": "~5.3.3"
   },
   "private": true

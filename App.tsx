@@ -6,7 +6,7 @@ import { ActivityIndicator } from "react-native";
 
 import { Colors } from "./constants/colors";
 
-import { init } from "./util/database";
+import { createTable } from "./util/database";
 
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
@@ -22,7 +22,7 @@ export default function App() {
   useEffect(() => {
     const initializeDatabase = async () => {
       try {
-        await init(); // Počkej na inicializaci databáze
+        await createTable(); // Počkej na inicializaci databáze
         setDbInitialized(true); // Nastav dbInitialized na true po úspěšné inicializaci
       } catch (error) {
         console.error("Failed to initialize database:", error); // Zpracování chyby
@@ -55,7 +55,7 @@ export default function App() {
         >
           <Stack.Screen
             name="AllPlaces"
-            component={AllPlaces}
+            component={AllPlaces as React.ComponentType<{}>}
             options={({ navigation }) => ({
               title: "Your Favorite Places",
               headerRight: ({ tintColor }) => (
