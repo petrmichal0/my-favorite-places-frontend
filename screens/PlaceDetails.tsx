@@ -10,9 +10,18 @@ function PlaceDetails({ route, navigation }: any) {
     imageUri?: string;
     title?: string;
     address?: string;
+    latitude?: number;
+    longitude?: number;
   }>({});
 
-  function showOnMapHandler() {}
+  function showOnMapHandler() {
+    navigation.navigate("Map", {
+      pickedLocation: {
+        latitude: fetchedPlace.latitude,
+        longitude: fetchedPlace.longitude,
+      },
+    });
+  }
 
   const selectedPlaceId = route.params.placeId;
 

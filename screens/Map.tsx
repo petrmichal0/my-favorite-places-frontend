@@ -4,15 +4,20 @@ import MapView, { Marker } from "react-native-maps";
 
 import IconButton from "../components/Places/ui/IconButton";
 
-function Map({ navigation }: { navigation: any }) {
+function Map({ navigation, route }: { navigation: any; route: any }) {
+  const initialLocation = {
+    latitude: route.params?.pickedLocation?.latitude || null,
+    longitude: route.params?.pickedLocation?.longitude || null,
+  };
+
   const [selectedLocation, setSelectedLocation] = useState<{
     latitude: number;
     longitude: number;
-  } | null>(null);
+  } | null>(initialLocation);
 
   const region = {
-    latitude: 50.0755,
-    longitude: 14.4378,
+    latitude: initialLocation ? initialLocation.latitude : 50.0755,
+    longitude: initialLocation ? initialLocation.longitude : 14.4378,
     latitudeDelta: 0.0922, // how much content can be seen vertically
     longitudeDelta: 0.0421, // how much content can be seen horizontally
   };
@@ -20,6 +25,10 @@ function Map({ navigation }: { navigation: any }) {
   function selectLocationHandler(event: {
     nativeEvent: { coordinate: { latitude: number; longitude: number } };
   }) {
+    if (initialLocation) {
+      return;
+    }
+
     const { latitude, longitude } = event.nativeEvent.coordinate;
 
     setSelectedLocation({
@@ -44,6 +53,10 @@ function Map({ navigation }: { navigation: any }) {
       });
     };
 
+    if (initialLocation) {
+      return;
+    }
+
     navigation.setOptions({
       title: "Pick a Location",
       headerRight: ({ tintColor }: { tintColor: string }) => (
@@ -55,7 +68,7 @@ function Map({ navigation }: { navigation: any }) {
         />
       ),
     });
-  }, [navigation, selectedLocation]);
+  }, [navigation, selectedLocation, initialLocation]);
 
   return (
     <MapView
