@@ -5,14 +5,15 @@ type PlaceProps = {
   imageUri: string;
   title: string;
   address: string;
-  onSelect: () => void;
+  onSelect: (id: string) => void;
+  id: string;
 };
 
-function PlaceItem({ imageUri, title, address, onSelect }: PlaceProps) {
+function PlaceItem({ imageUri, title, address, onSelect, id }: PlaceProps) {
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
-      onPress={onSelect}
+      onPress={() => onSelect(id)}
     >
       <Image style={styles.image} source={{ uri: imageUri }} />
       <View style={styles.info}>
