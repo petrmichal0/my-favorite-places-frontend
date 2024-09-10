@@ -1,10 +1,10 @@
 import * as SQLite from "expo-sqlite";
 
-const openDatabase = async () => {
+async function openDatabase() {
   return await SQLite.openDatabaseAsync("places.db");
-};
+}
 
-export const createTable = async () => {
+export async function createTable() {
   const db = await openDatabase();
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS places (
@@ -17,9 +17,9 @@ export const createTable = async () => {
     );
   `);
   console.log("Table created successfully");
-};
+}
 
-export const insertPlace = async (title, imageUri, address, location) => {
+export async function insertPlace(title, imageUri, address, location) {
   const db = await openDatabase();
   const result = await db.runAsync(
     "INSERT INTO places (title, imageUri, address, lat, lng) VALUES (?, ?, ?, ?, ?);",
@@ -27,30 +27,30 @@ export const insertPlace = async (title, imageUri, address, location) => {
   );
   console.log("Place inserted successfully", result);
   return result.lastInsertRowId;
-};
+}
 
-export const fetchPlaces = async () => {
+export async function fetchPlaces() {
   const db = await openDatabase();
   const places = await db.getAllAsync("SELECT * FROM places;");
   return places;
-};
+}
 
-export const fetchPlaceWithId = async (id) => {
+export async function fetchPlaceWithId(id) {
   const db = await openDatabase();
   const place = await db.getFirstAsync("SELECT * FROM places WHERE id = ?;", [
     id,
   ]);
   return place;
-};
+}
 
-export const deletePlace = async (id) => {
+export async function deletePlace(id) {
   const db = await openDatabase();
   const result = await db.runAsync("DELETE FROM places WHERE id = ?;", [id]);
   console.log("Place deleted successfully", result);
   return result.changes;
-};
+}
 
-export const updatePlace = async (id, title, imageUri, address, lat, lng) => {
+export async function updatePlace(id, title, imageUri, address, lat, lng) {
   const db = await openDatabase();
   const result = await db.runAsync(
     "UPDATE places SET title = ?, imageUri = ?, address = ?, lat = ?, lng = ? WHERE id = ?;",
@@ -58,4 +58,4 @@ export const updatePlace = async (id, title, imageUri, address, lat, lng) => {
   );
   console.log("Place updated successfully", result);
   return result.changes;
-};
+}
