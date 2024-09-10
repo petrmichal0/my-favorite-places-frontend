@@ -1,3 +1,4 @@
+import { insertPlace } from "../util/database";
 import PlaceForm from "../components/Places/PlaceForm";
 
 type AddPlaceProps = {
@@ -5,7 +6,10 @@ type AddPlaceProps = {
 };
 
 function AddPlace({ navigation }: AddPlaceProps) {
-  function createPlaceHandler(place: any) {
+  async function createPlaceHandler(place: any) {
+    const { title, imageUri, address, location } = place;
+
+    await insertPlace(title, imageUri, address, location);
     navigation.navigate("AllPlaces", {
       place: place,
     });
