@@ -3,6 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"; // Impo
 import { useEffect, useState } from "react";
 
 import PlacesList from "../components/Places/PlacesList";
+import { fetchPlaces } from "./../util/database";
 
 type RootStackParamList = {
   AllPlaces: { place: any }; // Replace `any` with the specific type of `place` if known
@@ -18,10 +19,15 @@ function AllPlaces({ route }: AllPlacesProps) {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused && route.params) {
-      setLoadedPlaces((loadedPlaces) => [...loadedPlaces, route.params.place]);
+    async function loadPlaces() {
+      const places = await fetchPlaces();
+      setLoadedPlaces(places);
     }
-  }, [isFocused, route]);
+    if (isFocused) {
+      loadPlaces();
+      // setLoadedPlaces((loadedPlaces) => [...loadedPlaces, route.params.place]);
+    }
+  }, [isFocused]);
 
   return <PlacesList places={loadedPlaces} />;
 }

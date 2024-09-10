@@ -10,9 +10,7 @@ function AddPlace({ navigation }: AddPlaceProps) {
     const { title, imageUri, address, location } = place;
 
     await insertPlace(title, imageUri, address, location);
-    navigation.navigate("AllPlaces", {
-      place: place,
-    });
+    navigation.navigate("AllPlaces");
   }
   return <PlaceForm onCreatePlace={createPlaceHandler} />;
 }
