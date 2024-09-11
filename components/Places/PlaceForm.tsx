@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 import { Colors } from "../../constants/colors";
 
@@ -40,8 +47,8 @@ function PlaceForm({ onCreatePlace }: PlaceFormProps) {
   }
 
   function savePlaceHandler() {
-    if (!pickedLocation) {
-      // If no location is selected, do nothing or display an error
+    if (!enteredTitle || !pickedLocation || !selectedImage) {
+      Alert.alert("Please fill all items!");
       return;
     }
 
