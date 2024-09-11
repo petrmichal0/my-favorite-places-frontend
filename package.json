@@ -15,11 +15,11 @@
     "axios": "^1.7.7",
     "expo-image-picker": "~15.0.7",
     "expo-location": "~17.0.1",
+    "expo-sqlite": "~14.0.6",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.5",
-    "react-native-maps": "1.14.0",
-    "expo-sqlite": "~14.0.6"
+    "react-native-maps": "^1.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

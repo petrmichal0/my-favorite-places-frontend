@@ -49,7 +49,6 @@ export async function deletePlace(id) {
   console.log("Place deleted successfully", result);
   return result.changes;
 }
-
 export async function updatePlace(id, title, imageUri, address, lat, lng) {
   const db = await openDatabase();
   const result = await db.runAsync(

@@ -1,5 +1,5 @@
 import OutlinedButton from "../components/Places/ui/OutlinedButton";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { Colors } from "../constants/colors";
 import { useEffect, useState } from "react";
@@ -10,15 +10,24 @@ function PlaceDetails({ route, navigation }: any) {
     imageUri?: string;
     title?: string;
     address?: string;
-    latitude?: number;
-    longitude?: number;
+    lat?: number;
+    lng?: number;
   }>({});
 
   function showOnMapHandler() {
+    console.log(fetchedPlace);
+    if (!fetchedPlace.lat || !fetchedPlace.lng) {
+      Alert.alert(
+        "Invalid Location",
+        "Cannot show the map because the location is not valid."
+      );
+      return;
+    }
+
     navigation.navigate("Map", {
       pickedLocation: {
-        latitude: fetchedPlace.latitude,
-        longitude: fetchedPlace.longitude,
+        latitude: fetchedPlace.lat,
+        longitude: fetchedPlace.lng,
       },
     });
   }
@@ -29,6 +38,13 @@ function PlaceDetails({ route, navigation }: any) {
     async function loadPlaceData() {
       const place = await fetchPlaceWithId(selectedPlaceId);
       setFetchedPlace(place);
+      console.log(place);
+
+      if (!place.lat || !place.lng) {
+        Alert.alert("Invalid Location Data", "Could not find location data.");
+        return;
+      }
+
       navigation.setOptions({
         title: place.title,
       });

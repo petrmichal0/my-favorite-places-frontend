@@ -6,8 +6,8 @@ import IconButton from "../components/Places/ui/IconButton";
 
 function Map({ navigation, route }: { navigation: any; route: any }) {
   const initialLocation = {
-    latitude: route.params?.pickedLocation?.latitude || null,
-    longitude: route.params?.pickedLocation?.longitude || null,
+    latitude: route.params?.pickedLocation?.latitude ?? 50.0755,
+    longitude: route.params?.pickedLocation?.longitude ?? 14.4378,
   };
 
   const [selectedLocation, setSelectedLocation] = useState<{
@@ -16,25 +16,29 @@ function Map({ navigation, route }: { navigation: any; route: any }) {
   } | null>(initialLocation);
 
   const region = {
-    latitude: initialLocation ? initialLocation.latitude : 50.0755,
-    longitude: initialLocation ? initialLocation.longitude : 14.4378,
-    latitudeDelta: 0.0922, // how much content can be seen vertically
-    longitudeDelta: 0.0421, // how much content can be seen horizontally
+    latitude: selectedLocation
+      ? selectedLocation.latitude
+      : initialLocation.latitude,
+    longitude: selectedLocation
+      ? selectedLocation.longitude
+      : initialLocation.longitude,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
   };
 
   function selectLocationHandler(event: {
     nativeEvent: { coordinate: { latitude: number; longitude: number } };
   }) {
-    if (initialLocation) {
+    if (
+      route.params?.pickedLocation?.latitude &&
+      route.params?.pickedLocation?.longitude
+    ) {
       return;
     }
 
     const { latitude, longitude } = event.nativeEvent.coordinate;
-
-    setSelectedLocation({
-      latitude,
-      longitude,
-    });
+    console.log(latitude, longitude);
+    setSelectedLocation({ latitude, longitude });
   }
 
   useEffect(() => {
@@ -53,21 +57,22 @@ function Map({ navigation, route }: { navigation: any; route: any }) {
       });
     };
 
-    if (initialLocation) {
-      return;
+    if (
+      !route.params?.pickedLocation?.latitude &&
+      !route.params?.pickedLocation?.longitude
+    ) {
+      navigation.setOptions({
+        title: "Pick a Location",
+        headerRight: ({ tintColor }: { tintColor: string }) => (
+          <IconButton
+            icon="save"
+            size={24}
+            color={tintColor || "#000000"}
+            onPress={savePickedLocationHandler}
+          />
+        ),
+      });
     }
-
-    navigation.setOptions({
-      title: "Pick a Location",
-      headerRight: ({ tintColor }: { tintColor: string }) => (
-        <IconButton
-          icon="save"
-          size={24}
-          color={tintColor || "#000000"}
-          onPress={savePickedLocationHandler}
-        />
-      ),
-    });
   }, [navigation, selectedLocation, initialLocation]);
 
   return (
@@ -86,6 +91,7 @@ function Map({ navigation, route }: { navigation: any; route: any }) {
     </MapView>
   );
 }
+
 export default Map;
 
 const styles = StyleSheet.create({
