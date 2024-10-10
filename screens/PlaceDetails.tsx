@@ -1,9 +1,17 @@
 import OutlinedButton from "../components/Places/ui/OutlinedButton";
-import { Alert, Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+} from "react-native";
 
 import { Colors } from "../constants/colors";
 import { useEffect, useState } from "react";
-import { fetchPlaceWithId } from "../util/database";
+import { fetchPlaceWithId, deletePlace } from "../util/database";
 
 function PlaceDetails({ route, navigation }: any) {
   const [fetchedPlace, setFetchedPlace] = useState<{
@@ -30,6 +38,15 @@ function PlaceDetails({ route, navigation }: any) {
         longitude: fetchedPlace.lng,
       },
     });
+  }
+
+  async function deletePlaceHandler() {
+    try {
+      await deletePlace(selectedPlaceId);
+      navigation.navigate("AllPlaces"); // Po smazání se vraťte na seznam míst
+    } catch (error) {
+      console.error("Failed to delete the place:", error);
+    }
   }
 
   const selectedPlaceId = route.params.placeId;
@@ -73,10 +90,16 @@ function PlaceDetails({ route, navigation }: any) {
         <OutlinedButton icon="map" onPress={showOnMapHandler}>
           View on Map
         </OutlinedButton>
+        <Button
+          title="Delete Place"
+          onPress={deletePlaceHandler}
+          color={Colors.primary500}
+        />
       </View>
     </ScrollView>
   );
 }
+
 export default PlaceDetails;
 
 const styles = StyleSheet.create({
