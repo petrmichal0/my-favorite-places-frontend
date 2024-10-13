@@ -13,7 +13,6 @@ My Favorite Places Frontend is a React Native application that allows users to e
 - [Project Title and Description](#project-title-and-description)
 - [Features](#features)
 - [Installation (for Development)](#installation-for-development)
-- [Set up Environment Variables](#set-up-environment-variables)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
 - [Demo (for End Users)](#demo-for-end-users)
@@ -54,41 +53,6 @@ My Favorite Places Frontend is a React Native application that allows users to e
     ```bash
     npm install
     ```
-
-## Set up Environment Variables
-
-To run this application, you'll need to set up several environment variables. These variables are essential for connecting to external services like Google Maps API. Follow these steps:
-
-### 1. Create a `.env` File
-
-In the root directory of your project, create a file named `.env` where you will store these variables.
-
-### 2. Define the Required Environment Variables
-
-Add the following variables to your `.env` file. Replace the placeholder values with your actual credentials.
-
-```env
-# Google Maps API Key
-GOOGLE_MAPS_API_KEY=your_google_maps_api_key
-```
-
-Replace `your_google_maps_api_key` with the actual API key obtained from Google Cloud Console.
-
-### 3. Obtain Necessary Credentials and API Keys
-
-#### Google Maps API Key:
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/).
-2. Create a new project or select an existing project.
-3. Enable the **Maps SDK for Android**, **Maps SDK for iOS**, and any other Google Maps APIs needed (e.g., **Geocoding API**, **Static Maps API**).
-4. Go to "APIs & Services" → "Credentials" and create a new **API key**.
-5. Restrict the API key's usage to your project if needed for security purposes.
-
-### 4. Secure Your Environment Variables
-
-Make sure that your `.env` file is included in your `.gitignore` file to prevent it from being pushed to a public repository. This ensures your sensitive credentials remain secure.
-
-By following these steps, you ensure that your application is correctly configured to use the Google Maps API and securely store the necessary credentials.
 
 ## Usage
 
