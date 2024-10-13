@@ -1,7 +1,7 @@
-# My Favorite Places
+# My Favorite Places Frontend
 
 ## Project Title and Description
-My Favorite Places is a React Native application that allows users to explore and manage their favorite locations with an easy-to-use interface. The app provides features like adding new places, viewing details, location picking on a map, and storing images.
+My Favorite Places Frontend is a React Native application that allows users to explore and manage their favorite locations with an easy-to-use interface. The app provides features like adding new places, viewing details, location picking on a map, and storing images.
 
 ## Badges
 ![Static Badge](https://img.shields.io/badge/status-online-brightgreen)
@@ -42,12 +42,12 @@ My Favorite Places is a React Native application that allows users to explore an
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/petrmichal0/my-favorite-places.git
+    git clone https://github.com/petrmichal0/my-favorite-places-frontend.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd my-favorite-places
+    cd my-favorite-places-frontend
     ```
 
 3. Install dependencies:
@@ -159,7 +159,7 @@ You can also download the app's installation file directly to your device:
 ## Project Structure
 
 ```css
-My Favorite Places/
+My Favorite Places Frontend/
 ├── assets/
 │   ├── adaptive-icon.png
 │   ├── icon.png
@@ -188,7 +188,6 @@ My Favorite Places/
 │   ├── database.js
 │   ├── location.ts
 ├── .env
-├── env.d.ts
 ├── App.tsx
 ├── app.json
 ├── babel.config.js
@@ -209,7 +208,6 @@ My Favorite Places/
 - **React Navigation**: Provides navigation capabilities.
 - **SQLite**: Stores and manages local data.
 - **Axios**: Fetches location data from Google Maps API.
-- **Dotenv**: Loads environment variables from a `.env` file to secure sensitive API keys.
 
 ## License
 
