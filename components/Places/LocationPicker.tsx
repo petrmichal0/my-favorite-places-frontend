@@ -30,6 +30,7 @@ type LocationPickerProps = {
   onPickLocation: (location: {
     lat: number;
     lng: number;
+
     address?: string;
   }) => void;
 };
@@ -43,6 +44,9 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
     lng: number;
     address: string;
   } | null>(null);
+  const [locationPreviewUrl, setLocationPreviewUrl] = useState<string | null>(
+    null
+  );
 
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
@@ -80,13 +84,24 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
         );
         console.log("Fetched Address:", address);
 
-        // Pokud je adresa stejná jako v pickedLocation, nic nedělej
+        // Získání náhledu mapy
+        const previewUrl = await getMapPreview(
+          pickedLocation.lat,
+          pickedLocation.lng
+        );
+        console.log("Preview URL:", previewUrl);
+
         if (pickedLocation.address === address) return;
 
-        // Pokud je adresa jiná, aktualizuj pickedLocation
+        // Aktualizuj pickedLocation s novou adresou
         const updatedLocation = { ...pickedLocation, address };
         setPickedLocation(updatedLocation);
         onPickLocation(updatedLocation);
+
+        // Nastavení náhledu obrázku, pokud je URL k dispozici
+        if (previewUrl) {
+          setLocationPreviewUrl(previewUrl); // Nový stav pro obrázek
+        }
       }
     }
 
@@ -137,14 +152,9 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
 
   let locationPreview = <Text> No location picked yet. </Text>;
 
-  if (pickedLocation) {
+  if (locationPreviewUrl) {
     locationPreview = (
-      <Image
-        style={styles.image}
-        source={{
-          uri: getMapPreview(pickedLocation.lat, pickedLocation.lng),
-        }}
-      />
+      <Image style={styles.image} source={{ uri: locationPreviewUrl }} />
     );
     console.log("Picked Location:", pickedLocation);
   }
