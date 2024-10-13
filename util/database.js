@@ -16,7 +16,6 @@ export async function createTable() {
       lng REAL NOT NULL
     );
   `);
-  console.log("Table created successfully");
 }
 
 export async function insertPlace(title, imageUri, address, location) {
@@ -25,7 +24,6 @@ export async function insertPlace(title, imageUri, address, location) {
     "INSERT INTO places (title, imageUri, address, lat, lng) VALUES (?, ?, ?, ?, ?);",
     [title, imageUri, address, location.lat, location.lng]
   );
-  console.log("Place inserted successfully", result);
   return result.lastInsertRowId;
 }
 
@@ -46,7 +44,6 @@ export async function fetchPlaceWithId(id) {
 export async function deletePlace(id) {
   const db = await openDatabase();
   const result = await db.runAsync("DELETE FROM places WHERE id = ?;", [id]);
-  console.log("Place deleted successfully", result);
   return result.changes;
 }
 export async function updatePlace(id, title, imageUri, address, lat, lng) {
@@ -55,6 +52,5 @@ export async function updatePlace(id, title, imageUri, address, lat, lng) {
     "UPDATE places SET title = ?, imageUri = ?, address = ?, lat = ?, lng = ? WHERE id = ?;",
     [title, imageUri, address, lat, lng, id]
   );
-  console.log("Place updated successfully", result);
   return result.changes;
 }

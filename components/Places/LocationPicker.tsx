@@ -73,23 +73,17 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
   useEffect(() => {
     async function handleLocation() {
       if (pickedLocation) {
-        console.log("Picked Location:", pickedLocation);
-        console.log("Latitude:", pickedLocation.lat);
-        console.log("Longitude:", pickedLocation.lng);
-
         // Získání adresy na základě aktuální polohy
         const address = await getAddress(
           pickedLocation.lat,
           pickedLocation.lng
         );
-        console.log("Fetched Address:", address);
 
         // Získání náhledu mapy
         const previewUrl = await getMapPreview(
           pickedLocation.lat,
           pickedLocation.lng
         );
-        console.log("Preview URL:", previewUrl);
 
         if (pickedLocation.address === address) return;
 
@@ -156,7 +150,6 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
     locationPreview = (
       <Image style={styles.image} source={{ uri: locationPreviewUrl }} />
     );
-    console.log("Picked Location:", pickedLocation);
   }
 
   return (

@@ -23,7 +23,6 @@ function PlaceDetails({ route, navigation }: any) {
   }>({});
 
   function showOnMapHandler() {
-    console.log(fetchedPlace);
     if (!fetchedPlace.lat || !fetchedPlace.lng) {
       Alert.alert(
         "Invalid Location",
@@ -55,7 +54,6 @@ function PlaceDetails({ route, navigation }: any) {
     async function loadPlaceData() {
       const place = await fetchPlaceWithId(selectedPlaceId);
       setFetchedPlace(place);
-      console.log(place);
 
       if (!place.lat || !place.lng) {
         Alert.alert("Invalid Location Data", "Could not find location data.");

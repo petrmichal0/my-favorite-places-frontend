@@ -43,7 +43,6 @@ function PlaceForm({ onCreatePlace }: PlaceFormProps) {
 
   function pickLocationHandler(location: any) {
     setPickedLocation(location);
-    console.log(location);
   }
 
   function savePlaceHandler() {

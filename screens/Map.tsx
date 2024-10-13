@@ -37,7 +37,6 @@ function Map({ navigation, route }: { navigation: any; route: any }) {
     }
 
     const { latitude, longitude } = event.nativeEvent.coordinate;
-    console.log(latitude, longitude);
     setSelectedLocation({ latitude, longitude });
   }
 
