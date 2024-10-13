@@ -14,6 +14,7 @@ My Favorite Places Frontend is a React Native application that allows users to e
 - [Features](#features)
 - [Installation (for Development)](#installation-for-development)
 - [Usage](#usage)
+- [Backend Information](#backend-information)
 - [Screenshots](#screenshots)
 - [Demo (for End Users)](#demo-for-end-users)
 - [Project Structure](#project-structure)
@@ -70,6 +71,18 @@ To run the app on a simulator or physical device:
     ```bash
     npm run android
     ```
+
+## Backend Information
+
+The backend for this project is hosted at the following URL:
+
+- **Backend API:** [https://my-favorite-places-backend-2c1cd3b2e4af.herokuapp.com/](https://my-favorite-places-backend-2c1cd3b2e4af.herokuapp.com/)
+
+The source code for the backend is available on GitHub:
+
+- **Backend Repository:** [https://github.com/petrmichal0/my-favorite-places-backend](https://github.com/petrmichal0/my-favorite-places-backend)
+
+All API endpoints and detailed documentation on how to interact with the backend are provided in the backend repository. If you want to see the available API requests and how to use them, please visit the backend repository's README or relevant documentation files.
 
 ## Screenshots
 
