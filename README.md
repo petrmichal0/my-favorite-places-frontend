@@ -123,9 +123,9 @@ All API endpoints and detailed documentation on how to interact with the backend
 
 The easiest way to try the app is by using **Expo Go**. Simply download the [Expo Go](https://expo.dev/client) app on your mobile device and scan the QR code below to launch the app:
 
-<img src="https://github.com/user-attachments/assets/7ce6f21b-e2e1-404d-886e-81f0b321a54c" alt="QR Code for Expo" width="200">
+<img src="https://github.com/user-attachments/assets/13bd8f8e-c8a5-4219-a2c2-3cf8f9a0eb9b" alt="QR Code for Expo" width="200">
 
-Alternatively, you can open the app directly in Snack using this link: [Open in Snack](https://snack.expo.dev/@petrmichal0/my-favorite-places-v1?platform=android).
+Alternatively, you can open the app directly in Snack using this link: [Open in Snack](https://snack.expo.dev/@petrmichal0/my-favorite-places-frontend?platform=android).
 
 ### 2. Download the App Directly
 
