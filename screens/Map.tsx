@@ -5,23 +5,20 @@ import MapView, { Marker } from "react-native-maps";
 import IconButton from "../components/Places/ui/IconButton";
 
 function Map({ navigation, route }: { navigation: any; route: any }) {
-  const initialLocation = {
-    latitude: route.params?.pickedLocation?.latitude ?? 50.0755,
-    longitude: route.params?.pickedLocation?.longitude ?? 14.4378,
-  };
+  const initialLatitude = route.params?.pickedLocation?.latitude ?? 50.0755;
+  const initialLongitude = route.params?.pickedLocation?.longitude ?? 14.4378;
 
   const [selectedLocation, setSelectedLocation] = useState<{
     latitude: number;
     longitude: number;
-  } | null>(initialLocation);
+  } | null>({
+    latitude: initialLatitude,
+    longitude: initialLongitude,
+  });
 
   const region = {
-    latitude: selectedLocation
-      ? selectedLocation.latitude
-      : initialLocation.latitude,
-    longitude: selectedLocation
-      ? selectedLocation.longitude
-      : initialLocation.longitude,
+    latitude: selectedLocation ? selectedLocation.latitude : initialLatitude,
+    longitude: selectedLocation ? selectedLocation.longitude : initialLongitude,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
@@ -72,7 +69,14 @@ function Map({ navigation, route }: { navigation: any; route: any }) {
         ),
       });
     }
-  }, [navigation, selectedLocation, initialLocation]);
+  }, [
+    navigation,
+    selectedLocation,
+    initialLatitude,
+    initialLongitude,
+    route.params?.pickedLocation?.latitude,
+    route.params?.pickedLocation?.longitude,
+  ]);
 
   return (
     <MapView

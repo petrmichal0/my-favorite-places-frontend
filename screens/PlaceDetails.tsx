@@ -66,7 +66,7 @@ function PlaceDetails({ route, navigation }: any) {
     }
 
     loadPlaceData();
-  }, [selectedPlaceId]);
+  }, [selectedPlaceId, navigation]);
 
   if (!fetchedPlace) {
     return (

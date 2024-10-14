@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -30,7 +30,6 @@ type LocationPickerProps = {
   onPickLocation: (location: {
     lat: number;
     lng: number;
-
     address?: string;
   }) => void;
 };
@@ -51,23 +50,29 @@ function LocationPicker({ onPickLocation }: LocationPickerProps) {
   const [locationPermissionInformation, requestPermission] =
     useForegroundPermissions();
 
-  const mapPickedLocation = route.params && {
-    lat: route.params.pickedLat,
-    lng: route.params.pickedLng,
-    address: "",
-  };
+  // Definice mapPickedLocation pomocí useCallback
+  const mapPickedLocation = useCallback(() => {
+    return (
+      route.params && {
+        lat: route.params.pickedLat,
+        lng: route.params.pickedLng,
+        address: "",
+      }
+    );
+  }, [route.params]);
 
   // Sleduj změny route.params pouze jednou
   useEffect(() => {
+    const currentMapPickedLocation = mapPickedLocation();
     if (
-      mapPickedLocation &&
+      currentMapPickedLocation &&
       (!pickedLocation ||
-        pickedLocation.lat !== mapPickedLocation.lat ||
-        pickedLocation.lng !== mapPickedLocation.lng)
+        pickedLocation.lat !== currentMapPickedLocation.lat ||
+        pickedLocation.lng !== currentMapPickedLocation.lng)
     ) {
-      setPickedLocation(mapPickedLocation);
+      setPickedLocation(currentMapPickedLocation);
     }
-  }, [route.params]); // Sleduj pouze route.params
+  }, [route.params, mapPickedLocation, pickedLocation]); // Sleduj pouze route.params
 
   // Sleduj změny pickedLocation a získej adresu
   useEffect(() => {
