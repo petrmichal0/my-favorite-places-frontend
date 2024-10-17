@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn-device-features",
-    "slug": "rn-device-features",
+    "name": "my-favorite-places-frontend",
+    "slug": "my-favorite-places-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
