@@ -74,7 +74,7 @@ To run the app on a simulator or physical device:
 
 The backend for this project is hosted at the following URL:
 
-- **Backend API:** [https://my-favorite-places-backend-2c1cd3b2e4af.herokuapp.com/](https://my-favorite-places-backend-2c1cd3b2e4af.herokuapp.com/)
+- **Backend API:** https://my-favorite-places-backend-2c1cd3b2e4af.herokuapp.com/
 
 The source code for the backend is available on GitHub:
 
