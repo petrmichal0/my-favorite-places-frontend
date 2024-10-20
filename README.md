@@ -119,13 +119,19 @@ All API endpoints and detailed documentation on how to interact with the backend
 
 ## Demo (for End Users)
 
-### 1. Try the App with Expo Go
+### 1. Try the App with Expo Go or Web Preview
+You have two options to try the app:
 
-The easiest way to try the app is by using **Expo Go**. Simply download the [Expo Go](https://expo.dev/client) app on your mobile device and scan the QR code below to launch the app:
+1. **Web Preview (Launch Snack)**:
+   - Simply click this link: [Open in Snack](https://snack.expo.dev/@petrmichal0/my-favorite-places-frontend?platform=android).
+   - The page will open with the **Android** tab selected.
+   - Click the **Launch Snack** button to instantly run the app in the web-based Expo Snack environment.
 
-<img src="https://github.com/user-attachments/assets/13bd8f8e-c8a5-4219-a2c2-3cf8f9a0eb9b" alt="QR Code for Expo" width="200">
-
-Alternatively, you can open the app directly in Snack using this link: [Open in Snack](https://snack.expo.dev/@petrmichal0/my-favorite-places-frontend?platform=android).
+2. **Expo Go on Your Mobile Device**:
+   - Download the [Expo Go](https://expo.dev/client) app on your mobile device.
+   - Open the Snack link: [Open in Snack](https://snack.expo.dev/@petrmichal0/my-favorite-places-frontend?platform=android).
+   - Select the **My Device** tab.
+   - Scan the QR code with the **Expo Go** app on your mobile device to launch the app on your phone.
 
 ### 2. Download the App Directly
 
@@ -181,11 +187,16 @@ My Favorite Places Frontend/
 
 ## Third-Party Libraries
 
-- **Expo**: Used for rapid development and easy deployment.
-- **React Navigation**: Provides navigation capabilities.
-- **SQLite**: Stores and manages local data.
-- **Axios**: Fetches location data from Google Maps API.
+- **Expo Vector Icons**: A library that provides a set of customizable icons for use in Expo and React Native projects.
+- **React Navigation**: A library for handling navigation in React Native apps.
+- **React Navigation Native Stack**: Provides stack navigation for React Native applications, a part of the React Navigation library.
+- **Axios**: A library for making HTTP requests, simplifying API calls.
+- **Expo Image Picker**: Allows users to select images from their device’s library or take photos with the camera.
+- **Expo Location**: Provides access to the device's location information.
+- **Expo SQLite**: Enables the use of a SQLite database within an Expo project.
+- **Expo Status Bar**: A component that provides status bar configuration and control in Expo projects.
+- **React Native Maps**: A library for rendering and using maps in React Native apps with support for Google Maps and Apple Maps.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the LICENSE file for details.
